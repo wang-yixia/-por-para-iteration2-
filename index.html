@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final: 55 Preguntas de Consolidación</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background-color: #ecf0f1;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 { text-align: center; color: #2980b9; margin-bottom: 10px; }
+        .intro { text-align: center; color: #7f8c8d; margin-bottom: 30px; }
+        
+        .section-title {
+            background-color: #2980b9;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .question-card {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        .question-card:last-child { border-bottom: none; }
+        .q-text { font-weight: bold; margin-bottom: 10px; font-size: 1.05em; }
+        
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: #f8f9f9;
+            border: 1px solid #d5dbdb;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-label:hover { background-color: #e8f8f5; }
+        input[type="radio"] { margin-right: 10px; }
+        
+        .feedback {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.95em;
+        }
+        .feedback.correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .feedback.incorrect { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        
+        .submit-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin: 40px auto 10px auto;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .submit-btn:hover { background-color: #219653; transform: scale(1.02); }
+        .score-display { text-align: center; font-size: 1.5em; font-weight: bold; color: #e74c3c; display: none; margin-bottom: 20px;}
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Batería de 55 Preguntas: Repaso Total</h1>
+        <div class="intro">Selecciona la respuesta correcta para cada pregunta. Al final, pulsa "Evaluar" para ver tus resultados y explicaciones.</div>
+        
+        <div id="quiz-content"></div>
+
+        <button class="submit-btn" onclick="evaluateQuiz()">Evaluar mis respuestas</button>
+        <div id="score-display" class="score-display"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                section: "Parte 1: Por vs Para",
+                questions: [
+                    { q: "1. El proyecto tiene que estar entregado ___ el viernes.", options: ["por", "para", "de"], ans: 1, exp: "para: 表示死线/截止期限 (deadline)。" },
+                    { q: "2. La reunión ha sido organizada ___ el departamento de ventas.", options: ["por", "para", "a"], ans: 0, exp: "por: 被动语态引出动作发出者 (被...组织)。" },
+                    { q: "3. He comprado este regalo ___ mi hermana.", options: ["por", "para", "a"], ans: 1, exp: "para: 表示物品最终的接收者。" },
+                    { q: "4. Muchas gracias ___ haberme ayudado con la mudanza.", options: ["para", "por", "a"], ans: 1, exp: "por: 表示情感(感谢、抱歉)的原因，固定搭配。" },
+                    { q: "5. Salimos muy temprano ___ evitar el atasco de tráfico.", options: ["por", "para", "a"], ans: 1, exp: "para: + 动词原形，表示目的。" },
+                    { q: "6. No te preocupes ___ los resultados de los exámenes.", options: ["de", "para", "por"], ans: 2, exp: "preocuparse por: 固定搭配，为...担心。" },
+                    { q: "7. Lo siento, lo hice ___ necesidad, no tenía otra opción.", options: ["por", "para", "con"], ans: 0, exp: "por: 表示动作发生的动机/原因 (出于需要)。" },
+                    { q: "8. El tren pasa ___ Madrid antes de llegar a su destino.", options: ["hacia", "para", "por"], ans: 2, exp: "por: 表示经过、穿过的空间。" },
+                    { q: "9. La profesora nos felicitó ___ nuestro excelente trabajo.", options: ["a", "para", "por"], ans: 2, exp: "felicitar por: 因...而祝贺，表示原因。" },
+                    { q: "10. Estas sillas están diseñadas ___ personas con problemas de espalda.", options: ["por", "para", "de"], ans: 1, exp: "para: 表示适用对象或为谁设计。" },
+                    { q: "11. Te lo vendo ___ veinte euros.", options: ["por", "para", "a"], ans: 0, exp: "por: 表示交换的代价/价格。" },
+                    { q: "12. La empresa ha aumentado sus beneficios ___ un 20%.", options: ["a", "en", "por"], ans: 2, exp: "por: 在商业中表示增加/减少的具体比例。" },
+                    { q: "13. No hay espacio suficiente ___ todos los invitados.", options: ["de", "por", "para"], ans: 2, exp: "para: 表示供...使用，用途指向。" },
+                    { q: "14. Se canceló el evento ___ la fuerte tormenta.", options: ["para", "por", "de"], ans: 1, exp: "por: 表示原因 (因为风暴)。" },
+                    { q: "15. Siempre nos comunicamos ___ correo electrónico.", options: ["en", "para", "por"], ans: 2, exp: "por: 表示手段、媒介 (通过邮件)。" }
+                ]
+            },
+            {
+                section: "Parte 2: Conectores y Subjuntivo",
+                questions: [
+                    { q: "16. Te explicaré todo con calma para que lo ___ mejor.", options: ["entiendes", "entiendas", "entenderás"], ans: 1, exp: "entiendas: 'para que' 后面 100% 必须接虚拟式。" },
+                    { q: "17. A pesar de que la situación ___ difícil ahora mismo, tenemos que seguir.", options: ["es", "sea", "fuera"], ans: 0, exp: "es: 描述当下的已知客观事实，让步从句用陈述式。" },
+                    { q: "18. Aunque mañana ___ mucho, iremos a la montaña.", options: ["llueve", "llueva", "lloverá"], ans: 1, exp: "llueva: 针对未来尚未发生的假设，让步从句必须用虚拟式。" },
+                    { q: "19. Te llamaré en cuanto ___ a la oficina.", options: ["llego", "llegaré", "llegue"], ans: 2, exp: "llegue: 时间从句指代未来尚未发生的动作，强制用虚拟式。" },
+                    { q: "20. No podemos tomar decisiones hasta que ___ todos los datos.", options: ["tenemos", "tengamos", "tendremos"], ans: 1, exp: "tengamos: 'hasta que' 指向未来尚未完成的事，用虚拟式。" },
+                    { q: "21. El proyecto fracasó ___ no se planificó bien.", options: ["porque", "para que", "aunque"], ans: 0, exp: "porque: 用于解释直接的已知原因。" },
+                    { q: "22. No creo que esta medida ___ suficiente para resolver el problema.", options: ["es", "sea", "será"], ans: 1, exp: "sea: 'No creo que' 主观否定看法，强制触发虚拟式。" },
+                    { q: "23. Es necesario que el gobierno ___ acciones inmediatas.", options: ["toma", "tomará", "tome"], ans: 2, exp: "tome: 'Es necesario que' 表达主观评价/必要性，触发虚拟式。" },
+                    { q: "24. Por mucho que ___, no vas a aprobar si no cambias tu método.", options: ["estudias", "estudies", "estudiarás"], ans: 1, exp: "estudies: 'Por mucho que' 表示'无论你多...'，此处针对未来假设，用虚拟式。" },
+                    { q: "25. No solo trabaja de día, ___ estudia de noche.", options: ["sino", "sino que también", "pero"], ans: 1, exp: "sino que también: 后接完整分句(带有变位动词estudia)，需加 que。" },
+                    { q: "26. ___ el problema es complejo, debemos buscar una solución.", options: ["A pesar de que", "Para que", "En caso de que"], ans: 0, exp: "A pesar de que: 后接陈述式 'es'，表示'尽管(事实如此)'。Para que/En caso de que 必须接虚拟式。" },
+                    { q: "27. ___ llueva mañana, celebraremos la boda en el interior.", options: ["Ya que", "Debido a que", "En caso de que"], ans: 2, exp: "En caso de que: 后接虚拟式 'llueva'，表示假设'万一下雨'。" },
+                    { q: "28. No tenemos presupuesto; ___, no podemos contratar a nadie.", options: ["por lo tanto", "sin embargo", "porque"], ans: 0, exp: "por lo tanto: 前因后果，引出结论。" },
+                    { q: "29. Me quedé en casa ___ estaba muy cansado.", options: ["porque", "aunque", "para que"], ans: 0, exp: "porque: 陈述原因。" },
+                    { q: "30. La empresa invirtió mucho dinero para que sus empleados ___ más felices.", options: ["son", "fueran", "fueron"], ans: 1, exp: "fueran: 'para que' 必接虚拟。主句是过去时(invirtió)，从句用过去未完成时虚拟式。" }
+                ]
+            },
+            {
+                section: "Parte 3: Pronombres (CD y CI)",
+                questions: [
+                    { q: "31. ¿Puedes prestar el libro a María? Sí, ___ presto mañana.", options: ["le lo", "se lo", "lo le"], ans: 1, exp: "se lo: le(给Maria)遇到lo(书)时，le必须变成se。" },
+                    { q: "32. A mis padres ___ encanta viajar por Europa.", options: ["los", "les", "se"], ans: 1, exp: "les: gustar/encantar结构中，人永远是间接宾语 (与格)。" },
+                    { q: "33. ¿Has visto mis llaves? No, no ___ he visto.", options: ["los", "las", "les"], ans: 1, exp: "las: 代指 llaves (阴性复数)，直接承受'看见'的动作，用宾格。" },
+                    { q: "34. Señor, ¿___ puedo hacer una pregunta?", options: ["te", "le", "lo"], ans: 1, exp: "le: 尊称Usted的间接宾语(问您一个问题)。" },
+                    { q: "35. A Juan y a mí ___ interesa mucho la historia.", options: ["me", "les", "nos"], ans: 2, exp: "nos: '胡安和我' = 我们，interesar结构中作与格。" },
+                    { q: "36. El informe está listo. Voy a enviar___ al director ahora mismo.", options: ["le", "lo", "se"], ans: 1, exp: "lo: 发送的物品是informe(阳性单数)。句中al director已存在，所以此处只需填代指物品的宾格。" },
+                    { q: "37. He explicado el problema a mis compañeros. ___ he explicado todo.", options: ["Los", "Les", "Se"], ans: 1, exp: "Les: todo(物)已存在，说明缺失的是接收者(同学们)，用与格复数les。" },
+                    { q: "38. ¿Conoces a los nuevos vecinos? Todavía no ___ conozco.", options: ["les", "los", "se"], ans: 1, exp: "los: conocer直接作用于人，人作直接宾语(宾格)。" },
+                    { q: "39. Estos zapatos me quedan pequeños. No ___ quiero.", options: ["les", "los", "se"], ans: 1, exp: "los: 代指 zapatos (阳性复数)，作直接宾语。" },
+                    { q: "40. A ella ___ duele mucho la cabeza.", options: ["la", "le", "se"], ans: 1, exp: "le: doler结构中，产生痛感的人作间接宾语(与格)。" }
+                ]
+            },
+            {
+                section: "Parte 4: Verbos y Preposiciones (El reto final)",
+                questions: [
+                    { q: "41. El éxito de este equipo consiste ___ trabajar unidos.", options: ["de", "en", "a"], ans: 1, exp: "consistir en: 在于 / 由...组成 (极易错选de)。" },
+                    { q: "42. Tienes que enfrentarte ___ tus miedos.", options: ["a", "de", "con"], ans: 0, exp: "enfrentarse a: 面临 / 面对 (具有明确指向)。" },
+                    { q: "43. Estoy muy interesado ___ aprender japonés.", options: ["a", "en", "por"], ans: 1, exp: "estar interesado en: 对...感兴趣 (兴趣在领域内)。" },
+                    { q: "44. Es importante confiar ___ tus propios instintos.", options: ["a", "en", "de"], ans: 1, exp: "confiar en: 信任 / 相信 (把信心放在...里)。" },
+                    { q: "45. Esta empresa se dedica ___ la venta de software.", options: ["en", "a", "de"], ans: 1, exp: "dedicarse a: 致力于 / 从事于 (精力投向某处)。" },
+                    { q: "46. Muchos jóvenes aspiran ___ comprar una casa pronto.", options: ["en", "a", "de"], ans: 1, exp: "aspirar a: 渴望 / 志在获得 (目标指向)。" },
+                    { q: "47. No estoy acostumbrado ___ levantarme tan temprano.", options: ["de", "con", "a"], ans: 2, exp: "estar acostumbrado a: 习惯于 (适应的方向)。" },
+                    { q: "48. La decisión final depende ___ director general.", options: ["a", "del", "al"], ans: 1, exp: "depender de: 取决于 / 依赖于 (de + el = del)。" },
+                    { q: "49. Los clientes se quejaron ___ mal servicio.", options: ["del", "al", "por el"], ans: 0, exp: "quejarse de: 抱怨... (抱怨的来源，de + el = del)。" },
+                    { q: "50. El director nos informó ___ los últimos cambios.", options: ["por", "de", "a"], ans: 1, exp: "informar de / sobre: 通知关于...的事情。" },
+                    { q: "51. Tarde o temprano te darás cuenta ___ la verdad.", options: ["a", "en", "de"], ans: 2, exp: "darse cuenta de: 意识到... (固定结构)。" },
+                    { q: "52. Esta nueva ley afecta ___ millones de trabajadores.", options: ["a", "en", "por"], ans: 0, exp: "afectar a: 影响... (直接宾语指人时必须加 A personal)。" },
+                    { q: "53. Ha decidido renunciar ___ su puesto en la junta.", options: ["de", "a", "en"], ans: 1, exp: "renunciar a: 放弃 (对事物放手，方向离开)。" },
+                    { q: "54. Tenemos que insistir ___ la importancia del reciclaje.", options: ["en", "a", "por"], ans: 0, exp: "insistir en: 坚持 / 强调 (在某点上用力)。" },
+                    { q: "55. No estoy de acuerdo ___ esa propuesta.", options: ["a", "en", "con"], ans: 2, exp: "estar de acuerdo con: 同意 / 赞同 (带有伴随意味)。" }
+                ]
+            }
+        ];
+
+        let globalQuestionCounter = 0;
+        const container = document.getElementById('quiz-content');
+
+        quizData.forEach((section, sIndex) => {
+            const secTitle = document.createElement('div');
+            secTitle.className = 'section-title';
+            secTitle.innerHTML = `<h2>${section.section}</h2>`;
+            container.appendChild(secTitle);
+
+            section.questions.forEach((qObj, qIndex) => {
+                globalQuestionCounter++;
+                const qDiv = document.createElement('div');
+                qDiv.className = 'question-card';
+                qDiv.id = `qc-${globalQuestionCounter}`;
+
+                let html = `<div class="q-text">${qObj.q}</div><div class="options-group">`;
+                
+                qObj.options.forEach((opt, optIndex) => {
+                    const inputId = `q${globalQuestionCounter}_opt${optIndex}`;
+                    html += `
+                        <label class="option-label" for="${inputId}">
+                            <input type="radio" name="q${globalQuestionCounter}" id="${inputId}" value="${optIndex}">
+                            ${opt}
+                        </label>
+                    `;
+                });
+                
+                html += `</div><div class="feedback" id="fb-${globalQuestionCounter}" data-ans="${qObj.ans}">${qObj.exp}</div>`;
+                qDiv.innerHTML = html;
+                container.appendChild(qDiv);
+            });
+        });
+
+        function evaluateQuiz() {
+            let score = 0;
+            const total = globalQuestionCounter;
+
+            for (let i = 1; i <= total; i++) {
+                const feedbackDiv = document.getElementById(`fb-${i}`);
+                const correctAns = parseInt(feedbackDiv.getAttribute('data-ans'));
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+
+                feedbackDiv.style.display = 'block';
+
+                if (selected) {
+                    const userAns = parseInt(selected.value);
+                    if (userAns === correctAns) {
+                        feedbackDiv.className = 'feedback correct';
+                        feedbackDiv.innerHTML = `<strong>¡Correcto!</strong> ${quizData.flatMap(s=>s.questions)[i-1].exp}`;
+                        score++;
+                    } else {
+                        feedbackDiv.className = 'feedback incorrect';
+                        feedbackDiv.innerHTML = `<strong>Incorrecto.</strong> ${quizData.flatMap(s=>s.questions)[i-1].exp}`;
+                    }
+                } else {
+                    feedbackDiv.className = 'feedback incorrect';
+                    feedbackDiv.innerHTML = `<strong>Sin responder.</strong> ${quizData.flatMap(s=>s.questions)[i-1].exp}`;
+                }
+            }
+
+            const scoreDisplay = document.getElementById('score-display');
+            scoreDisplay.style.display = 'block';
+            scoreDisplay.innerHTML = `Tu puntuación final es: ${score} / ${total}`;
+            
+            window.scrollTo({ top: scoreDisplay.offsetTop - 50, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
